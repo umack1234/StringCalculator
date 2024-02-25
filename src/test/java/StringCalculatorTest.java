@@ -1,6 +1,7 @@
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class StringCalculatorTest {
     @Test
@@ -19,5 +20,22 @@ public class StringCalculatorTest {
     public void testAdd_TwoNumbers_ReturnsSum() {
         StringCalculator calc = new StringCalculator();
         assertEquals(3, calc.add("1,2"));
+    }
+    @Test
+    public void testAdd_NewLineBetweenNumbers_ReturnsSum() {
+        StringCalculator calc = new StringCalculator();
+        assertEquals(6, calc.add("1\n2,3"));
+    }
+
+    @Test
+    public void testAdd_CustomDelimiter_ReturnsSum() {
+        StringCalculator calc = new StringCalculator();
+        assertEquals(3, calc.add("//;\n1;2"));
+    }
+
+    @Test
+    public void testAdd_NegativeNumbers_ThrowsException() {
+        StringCalculator calc = new StringCalculator();
+        assertThrows(IllegalArgumentException.class, () -> calc.add("-1,2,-3"));
     }
 }
